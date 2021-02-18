@@ -4,19 +4,28 @@ using UnityEngine;
 
 public class CardDisplay : MonoBehaviour
 {
-    public CardScriptable cardInfo;
+    [Tooltip("Dados iniciais do card")]
+    [SerializeField] CardScriptable cardInfo;
+    [Header("Card Dados Jogo")]
+    [Tooltip("Construtor dos Cards no jogo com dados provenientes do CardScriptable")]
     public Card cardGame;
-    public bool deadCard;
+    [Header("Card Status ")]
+    [Tooltip("Indentifica se a carta está ativa ou desativa")]public bool deadCard;
     SpriteRenderer spriteRenderer;
     private void Start()
     {
-        spriteRenderer=GetComponent<SpriteRenderer>();
-        cardGame = new Card(cardInfo.name, cardInfo.imageCard, cardInfo.typeCard.ToString(), cardInfo.influence, cardInfo.influenceEffect);
-        spriteRenderer.sprite = cardGame.SpriteCard;
+        
+
     }
 
 
-
+    public void ConfigCardDisplay(CardScriptable newCard)
+    {
+        cardInfo = newCard;
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        cardGame = new Card(cardInfo.name, cardInfo.imageCard, cardInfo.typeCard.ToString(), cardInfo.influence, cardInfo.influenceEffect);
+        spriteRenderer.sprite = cardGame.SpriteCard;
+    }
     void GetDamage(int influenceDamage)
     {
         cardGame.Influence -= influenceDamage;
